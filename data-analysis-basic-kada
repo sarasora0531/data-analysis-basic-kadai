@@ -1,0 +1,20 @@
+# Step1: NumPyをインポートする
+import numpy as np
+
+# Step2: AとBの行列を格納する多次元配列を作成する
+A = np.array([[0, 1],
+              [2, 3],
+              [4, 5]])
+B = np.array([[0, 1, 2, 3],
+              [4, 5, 6, 7]])
+
+# Step3: 行列の積を計算する
+C = np.dot(A, B)
+
+# Step4: 計算結果を表示する
+print("行列の積の結果:")
+print(C)
+
+# Step5: 行列の要素の最大値を求める
+max_value = np.max(C)
+print("計算された行列の要素の最大値:", max_value)
