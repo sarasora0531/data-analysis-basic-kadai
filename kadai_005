@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 描画領域（Figure）とサブプロット（Axes）を作成
+fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
+
+# 折れ線グラフのデータ
+y0 = [1, 2, -5, 2]
+axes[0, 0].plot(y0)
+axes[0, 0].set_title("折れ線グラフ")
+
+# sin関数のグラフ
+x1 = np.linspace(0, 10, 100)
+y1 = 2 + 2 * np.sin(2 * x1)
+axes[0, 1].plot(x1, y1)
+axes[0, 1].set_title("sin関数")
+
+# ヒストグラム
+x2 = np.random.normal(15, 5, 2000)
+axes[0, 2].hist(x2, bins=30, color='g')
+axes[0, 2].set_title("ヒストグラム")
+
+# 散布図
+np.random.seed(3)
+x3 = 4 + np.random.normal(0, 2, 60)
+y3 = 4 + np.random.normal(0, 2, 60)
+axes[1, 0].scatter(x3, y3, color='r')
+axes[1, 0].set_title("散布図")
+
+# 円グラフ
+x4 = np.array([30, 40, 30])
+labels = ["いぬ", "ねこ", "その他"]
+axes[1, 1].pie(x4, labels=labels, autopct='%1.1f%%')
+axes[1, 1].set_title("好きな動物")
+
+# 棒グラフ
+x5 = np.array([1, 2, 3, 4, 5])
+y5 = np.array([100, 120, 150, 200, 160])
+labels = ["昆布", "梅", "鮭", "カルビ", "すじこ"]
+axes[1, 2].bar(x5, y5, tick_label=labels, color='c')
+axes[1, 2].set_title("おにぎりの具ごとの値段")
+
+# グラフの整理と表示
+plt.tight_layout()
+plt.show()
