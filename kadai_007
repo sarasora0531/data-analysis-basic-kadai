@@ -1,0 +1,57 @@
+#7.3条件に合うデータを抽出しよう
+# 初回のみライブラリをインポートする
+import pandas as pd
+
+# csvファイルをデータフレームとして読み込む
+df = pd.read_csv("/Users/swallows2/Downloads/sample_pandas_6.csv")
+# 先頭から５行目までを表示する
+df.head()
+
+df.query('商品番号 == "Z4WOOIYV"')
+
+df.query('単価 == 600')
+
+df.query('在庫 <= 5')
+
+df.query('商品番号 == "8T7D5DQA" and 在庫 <= 5')
+
+#7.4分析しやすいようにデータを変形しよう
+def tax(x):
+    return x *1.10
+
+df['単価'].apply(tax)
+
+type(df['発注日'].loc[0])
+
+type(pd.to_datetime(df['発注日']).loc[0])
+
+df.agg({'発注日':['max', 'min']})
+
+tax_series = df['単価'].apply(tax)
+tax_series.name = "単価（税込み）"
+pd.concat([df, tax_series], axis=1)
+
+category_df = pd.read_csv('/Users/swallows2/Downloads/category.csv')
+category_df
+
+df = pd.merge(df, category_df[['商品番号', 'カテゴリー']], how='inner', on='商品番号')
+df
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+# カテゴリー列の要素の出現頻度をカウント
+category_counts = df['カテゴリー'].value_counts()
+
+# 出現頻度の結果を棒グラフで表示
+category_counts.plot(kind='bar')
+plt.title('カテゴリー別の出現頻度')
+plt.xlabel('カテゴリー')
+plt.ylabel('出現回数')
+
+plt.show()
+
+# 商品番号ごとに注文数の基本統計量を算出
+order_stats = df.groupby('商品番号')['注文数'].describe()
+print(order_stats)
